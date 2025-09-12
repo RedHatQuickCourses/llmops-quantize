@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: Model Quantization with LLM Compressor
+  start_page: llmops-quantize::index.adoc
 
 content:
   sources:

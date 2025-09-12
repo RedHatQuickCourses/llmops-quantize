@@ -1,5 +1,6 @@
-name: REPLACEREPONAME
-title: FIXME Course Title
+name: llmops-quantize
+title: Model Quantization with LLM Compressor
+Compressor
 version: 1
 nav:
 - modules/ROOT/nav.adoc
