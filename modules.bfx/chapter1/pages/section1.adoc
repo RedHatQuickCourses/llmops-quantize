@@ -1,4 +1,4 @@
-== Module 1: Your First Quantization (W4A16)
+= Module 1: Your First Quantization (W4A16)
 
 In this module, we will perform our first quantization. We will start by setting up the necessary environment in OpenShift AI and then use a Jupyter Notebook to manually quantize a model. This hands-on approach provides a foundational understanding of the process before we move to automation.
 

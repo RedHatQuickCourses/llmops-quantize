@@ -1,4 +1,4 @@
-== Course Wrap-up
+= Course Wrap-up
 
 Congratulations! You have successfully quantized a Large Language Model both manually and through an automated pipeline. You have mastered a technique that delivers transformative cost and efficiency improvements for enterprise AI deployments.
 

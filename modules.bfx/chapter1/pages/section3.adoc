@@ -1,4 +1,4 @@
-== Module 2: Automating Quantization with Pipelines
+= Module 2: Automating Quantization with Pipelines
 
 Performing quantization manually in a notebook is great for learning, but for repeatable, enterprise-grade workflows, automation is key. In this module, you will automate the entire process using a Kubeflow Pipeline on OpenShift AI.
 
