@@ -8,10 +8,10 @@ Welcome, Optimization Specialist! As you dive into the powerful world of quantiz
 
 This entire learning path is a series of missions. You have benchmarked, validated, and tuned. Now it's time for the most impactful optimization technique.
 
-* **Mission 1: Benchmark the Battlefield with GuideLLM**
-* **Mission 2: Validate Your Ally's Strength with lm-eval-harness**
-* **Mission 3: Tune Your Engine with vLLM Optimization**
-* **This Mission: Travel Light and Fast with LLM Compressor**
+* **Mission 1: Model Performance Benchmarking with GuideLLM**
+* **Mission 2: Evaluating Model Accuracy with lm-eval-harness**
+* **Mission 3: Optimizing vLLM Performance**
+* **This Mission: Model Quantization with LLM Compressor**
 +
 --
 This is the art of making models smaller, faster, and cheaper to run. Your task is to use quantization to drastically reduce a model's size, answering the question: "How can I make this model radically more efficient?"
