@@ -46,14 +46,20 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="LABENV/index.html">Lab Environment</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="chapter1/mission.html">Your Place in the Adventure</a>
+    <a class="nav-link" href="chapter1/mission.html">Mission Four</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -61,9 +67,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="chapter1/section1.html">Module 1: Your First Quantization (W4A16)</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="chapter1/section2.html">Check your work</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="chapter1/section3.html">Module 2: Automating Quantization with Pipelines</a>
@@ -79,7 +82,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="appendix/appendix.html">Appendix</a>
+    <a class="nav-link" href="appendix/appendix.html">Course: Model Quantization with LLM Compressor</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="appendix/reference-quantization-technical.html">Technical Quantization Reference</a>
@@ -131,7 +134,10 @@
 <h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This course provides a comprehensive, hands-on guide to model quantization, one of the most effective techniques for reducing the cost and memory footprint of Large Language Models. You will learn to use Red Hat&#8217;s LLM Compressor toolkit to apply advanced compression techniques like W4A16, SmoothQuant, and GPTQ. The course covers both manual quantization within a Jupyter Notebook for deep understanding and the automation of the entire workflow using Kubeflow Pipelines for production-ready, repeatable results on OpenShift AI.</p>
+<p>This course provides a hands-on guide to model quantization, one of the most effective techniques for reducing the cost and memory footprint of Large Language Models.</p>
+</div>
+<div class="paragraph">
+<p>You will learn to use Red Hat&#8217;s LLM Compressor toolkit to apply advanced compression techniques like W4A16, SmoothQuant, and GPTQ. The course covers both manual quantization within a Jupyter Notebook for deep understanding and the automation of the entire workflow using Kubeflow Pipelines for production-ready, repeatable results on OpenShift AI.</p>
 </div>
 <div class="paragraph">
 <p>Duration: 2.5 hours</p>
@@ -153,7 +159,7 @@
 <p>Manually quantize an LLM using LLM Compressor, SmoothQuant, and GPTQ in a Jupyter Notebook.</p>
 </li>
 <li>
-<p>Build and execute an automated, end-to-end quantization workflow using Kubeflow Pipelines on OpenShift AI.</p>
+<p>Execute an automated, end-to-end quantization workflow using Kubeflow Pipelines on OpenShift AI.</p>
 </li>
 <li>
 <p>Articulate the business value of quantization and how it solves common enterprise challenges related to model size and deployment cost.</p>
@@ -177,7 +183,7 @@
 <p>Familiarity with using the OpenShift command-line (<code>oc</code>) and navigating the OpenShift AI dashboard.</p>
 </li>
 <li>
-<p>Access to a Red Hat OpenShift AI cluster with an available GPU node and a configured pipeline server.</p>
+<p>Access to a Red Hat OpenShift AI cluster with <strong>2</strong> available GPU accelerators and a configured pipeline server.</p>
 </li>
 <li>
 <p>Basic experience working within a Jupyter Notebook environment.</p>
@@ -187,7 +193,7 @@
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="LABENV/index.html">Lab Environment</a></span>
+  <span class="next"><a href="LABENV/index.html">Lab Environments</a></span>
 </nav>
 </article>
   </div>
