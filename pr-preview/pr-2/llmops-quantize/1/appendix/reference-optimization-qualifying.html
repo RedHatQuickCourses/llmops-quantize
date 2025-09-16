@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Enterprise Guide to LLM Optimization and Quantization :: Model Quantization with LLM Compressor</title>
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Quantization with LLM Compressor</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="llmops-quantize" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Quantization with LLM Compressor</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapter1/mission.html">Mission Four</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section5.html">Weights and Activation Quantization (W4A16)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section6.html">Model Quantization Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section7.html">Model Quantization Mastery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Course Wrap-up</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference-quantization-technical.html">Technical Quantization Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Quantization with LLM Compressor</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Quantization with LLM Compressor</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Quantization with LLM Compressor</a></li>
+    <li><a href="reference-optimization-qualifying.html">Enterprise Guide to LLM Optimization and Quantization</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Enterprise Guide to LLM Optimization and Quantization</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following document will provide introductory-level content to help you identify, qualify and position LLM optimization and quantization opportunities with our enterprise clients.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="executive-summary"><a class="anchor" href="#executive-summary"></a>Executive Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The exponential growth of Large Language Models has created a fundamental challenge: state-of-the-art AI models are becoming too large and expensive for most organizations to deploy effectively. LLM Compressor addresses this critical gap by powering Red Hat AI&#8217;s collection of <strong>490+ pre-compressed models</strong>, enabling <strong>2-5X faster inference</strong> while preserving accuracy.</p>
+</div>
+<div class="paragraph">
+<p>Rather than forcing organizations to navigate complex compression technologies, Red Hat AI provides ready-made compressed models that can be deployed immediately for AI inference without technical complexity.</p>
+</div>
+<div class="paragraph">
+<p>Consider build your own
+RedHat Valideted Model Repository</p>
+</div>
+<div class="paragraph">
+<p><strong>Bottom Line:</strong> Deploy fast, cost-efficient AI using pre-optimized models without compression complexity.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customer-qualification"><a class="anchor" href="#customer-qualification"></a>Customer Qualification</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The key to successful LLM compression engagements lies in identifying customers who face specific infrastructure or performance constraints. Experience shows that certain customer statements immediately indicate strong qualification potential, while others suggest the need for more careful evaluation.</p>
+</div>
+<div class="sect2">
+<h3 id="_strong_qualification_signals"><a class="anchor" href="#_strong_qualification_signals"></a>✅ Strong Qualification Signals</h3>
+<div class="paragraph">
+<p>When customers express these concerns, they represent ideal candidates for compressed model deployment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Our models don&#8217;t fit on our GPUs"</p>
+</li>
+<li>
+<p>"Inference costs are too high"</p>
+</li>
+<li>
+<p>"Response times are too slow"</p>
+</li>
+<li>
+<p>"We need to scale but can&#8217;t buy more hardware"</p>
+</li>
+<li>
+<p>"We&#8217;re hitting memory limits"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_high_value_regulatory_opportunities"><a class="anchor" href="#_high_value_regulatory_opportunities"></a>🎯 High-Value Regulatory Opportunities</h3>
+<div class="paragraph">
+<p>These signals indicate premium engagement opportunities with significant ROI potential:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"We have approved models we can&#8217;t deploy due to infrastructure costs"</p>
+</li>
+<li>
+<p>"Our validated models don&#8217;t fit on our current GPU clusters"</p>
+</li>
+<li>
+<p>"We need to scale approved models but hardware costs are prohibitive"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_proceed_with_caution"><a class="anchor" href="#_proceed_with_caution"></a>⚠️ Proceed with Caution</h3>
+<div class="paragraph">
+<p>These statements indicate potential complications that require deeper discovery and careful positioning:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"We can&#8217;t accept any accuracy loss" → Full-precision discussion</p>
+</li>
+<li>
+<p>"We need to modify the compression" → Clarify pre-compressed approach</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_discovery_questions"><a class="anchor" href="#_discovery_questions"></a>Discovery Questions</h3>
+<div class="paragraph">
+<p>Effective qualification requires understanding four critical dimensions of customer requirements:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Resource Constraints:</strong> "What GPU memory limitations affect your deployment?"</p>
+</li>
+<li>
+<p><strong>Performance Requirements:</strong> "What accuracy thresholds must be maintained?"</p>
+</li>
+<li>
+<p><strong>Scale Requirements:</strong> "What request volume do you need to support?"</p>
+</li>
+<li>
+<p><strong>Hardware Environment:</strong> "What GPU generation supports your infrastructure?"</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Regulatory Discovery:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Do you have approved models you can&#8217;t currently deploy due to infrastructure constraints?"</p>
+</li>
+<li>
+<p>"What would maintaining regulatory approval while reducing infrastructure costs be worth?"</p>
+</li>
+<li>
+<p>"How do you currently handle functional equivalence validation for model modifications?"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-is-llm-compressor"><a class="anchor" href="#what-is-llm-compressor"></a>What is LLM Compressor?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>LLM Compressor represents a strategic shift from complex, research-grade optimization tools to enterprise-ready AI deployment solutions. Rather than expecting organizations to become compression experts, Red Hat AI has industrialized the process through pre-optimized model collections and integrated tooling.</p>
+</div>
+<div class="paragraph">
+<p><strong>Business Purpose:</strong> Enables organizations to run AI models faster and more cost-effectively without hardware upgrades or quality degradation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Technical Foundation:</strong> Open-source library applying quantization, pruning, and sparsity techniques to reduce model size and accelerate inference.</p>
+</div>
+<div class="paragraph">
+<p><strong>Key Integration:</strong> Native compatibility with HuggingFace models and direct deployment to vLLM for production serving.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="business-value"><a class="anchor" href="#business-value"></a>Business Value</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The value proposition for LLM compression extends far beyond technical optimization to address fundamental business constraints that limit AI adoption and scale.</p>
+</div>
+<div class="sect2">
+<h3 id="_cost_impact"><a class="anchor" href="#_cost_impact"></a>Cost Impact</h3>
+<div class="paragraph">
+<p>Infrastructure costs represent the largest barrier to AI deployment at scale. Compressed models directly address this challenge through multiple mechanisms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>2-5X faster inference</strong> = 2-5X more requests per GPU</p>
+</li>
+<li>
+<p><strong>Up to 80% infrastructure cost reduction</strong> through fewer required GPUs</p>
+</li>
+<li>
+<p><strong>Immediate ROI</strong> without hardware procurement cycles</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_competitive_advantages"><a class="anchor" href="#_competitive_advantages"></a>Competitive Advantages</h3>
+<div class="paragraph">
+<p>Red Hat AI&#8217;s approach to model compression creates several distinct advantages in the marketplace:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Largest curated model collection</strong> (490+ models) in the market</p>
+</li>
+<li>
+<p><strong>Native vLLM integration</strong> for optimal performance</p>
+</li>
+<li>
+<p><strong>Enterprise support with SLAs</strong> vs. community-only tools</p>
+</li>
+<li>
+<p><strong>Immediate deployment</strong> vs. 3-6 month implementation cycles</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-selection"><a class="anchor" href="#model-selection"></a>Model Selection Made Simple</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The complexity of quantization schemes and technical parameters often obscures the straightforward business logic behind model selection. Red Hat AI has mapped common use cases to appropriate model types, eliminating the need for customers to understand technical compression details.</p>
+</div>
+<div class="sect2">
+<h3 id="_interactive_applications_chatbots_assistants"><a class="anchor" href="#_interactive_applications_chatbots_assistants"></a>Interactive Applications (Chatbots, Assistants)</h3>
+<div class="paragraph">
+<p>For applications where user experience depends on immediate response times and where concurrent user loads are typically moderate:</p>
+</div>
+<div class="paragraph">
+<p><strong>Recommend:</strong> W4A16 models (Llama 3.1 8B/70B W4A16)
+* <strong>Best for:</strong> Fastest response times, lowest memory usage
+* <strong>Trade-off:</strong> Slight accuracy reduction on complex reasoning</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_high_throughput_processing_batch_apis"><a class="anchor" href="#_high_throughput_processing_batch_apis"></a>High-Throughput Processing (Batch, APIs)</h3>
+<div class="paragraph">
+<p>When the primary concern is maximizing the number of requests processed per unit of time and infrastructure cost:</p>
+</div>
+<div class="paragraph">
+<p><strong>Recommend:</strong> W8A8 models (Llama 3.1 70B W8A8)
+* <strong>Best for:</strong> Maximum requests per second, cost optimization
+* <strong>Trade-off:</strong> Requires evaluation for accuracy sensitivity</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_balanced_production_most_common"><a class="anchor" href="#_balanced_production_most_common"></a>Balanced Production (Most Common)</h3>
+<div class="paragraph">
+<p>For organizations seeking the optimal balance between performance improvement and accuracy preservation:</p>
+</div>
+<div class="paragraph">
+<p><strong>Recommend:</strong> W8A16 models (recommended starting point)
+* <strong>Best for:</strong> Minimal accuracy impact, good performance gains
+* <strong>Trade-off:</strong> Moderate compression benefits</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_edge_deployment"><a class="anchor" href="#_edge_deployment"></a>Edge Deployment</h3>
+<div class="paragraph">
+<p>When models must operate in resource-constrained environments with limited computational capacity:</p>
+</div>
+<div class="paragraph">
+<p><strong>Recommend:</strong> W4A16 or more aggressive schemes
+* <strong>Best for:</strong> Resource-constrained environments
+* <strong>Trade-off:</strong> Potential accuracy degradation</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="accuracy-conversations"><a class="anchor" href="#accuracy-conversations"></a>Managing Accuracy Conversations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Accuracy concerns represent the most common objection to compressed model adoption. Success requires addressing these concerns proactively while maintaining realistic expectations about the evaluation requirements.</p>
+</div>
+<div class="sect2">
+<h3 id="_opening_position"><a class="anchor" href="#_opening_position"></a>Opening Position</h3>
+<div class="paragraph">
+<p>Establish credibility while setting appropriate expectations from the initial conversation:</p>
+</div>
+<div class="paragraph">
+<p><em>"Our compressed models typically maintain 95%+ accuracy, but we recommend evaluation on your specific use case."</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_common_objections_responses"><a class="anchor" href="#_common_objections_responses"></a>Common Objections &amp; Responses</h3>
+<div class="paragraph">
+<p>Preparing for predictable customer concerns enables confident navigation of accuracy discussions:</p>
+</div>
+<div class="paragraph">
+<p><strong>"We can&#8217;t accept any accuracy loss"</strong>
+→ <em>"Let&#8217;s start with W8A16 models that show minimal impact, then evaluate"</em></p>
+</div>
+<div class="paragraph">
+<p><strong>"How do we know it will work?"</strong>
+→ <em>"Red Hat AI provides evaluation support and validated benchmarks"</em></p>
+</div>
+<div class="paragraph">
+<p><strong>"What if accuracy drops?"</strong>
+→ <em>"We can adjust compression levels or revert to full-precision models"</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance_expectations"><a class="anchor" href="#_performance_expectations"></a>Performance Expectations</h3>
+<div class="paragraph">
+<p>Setting realistic expectations based on quantization scheme selection helps customers make informed decisions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>W8A16:</strong> Minimal accuracy impact (typically &lt;2% degradation)</p>
+</li>
+<li>
+<p><strong>W8A8:</strong> Variable results requiring evaluation (2-5% potential impact)</p>
+</li>
+<li>
+<p><strong>W4A16:</strong> Requires thorough evaluation (5-10% potential impact)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deployment-framework"><a class="anchor" href="#deployment-framework"></a>Deployment Decision Framework</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Successful compressed model deployments require careful assessment of customer circumstances to identify ideal opportunities while avoiding problematic engagements.</p>
+</div>
+<div class="sect2">
+<h3 id="_deploy_when"><a class="anchor" href="#_deploy_when"></a>Deploy When</h3>
+<div class="paragraph">
+<p>These scenarios represent strong indicators for successful compressed model adoption:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>GPU memory constraints prevent model deployment</p>
+</li>
+<li>
+<p>High inference costs impact operational budgets</p>
+</li>
+<li>
+<p>Latency requirements demand faster response times</p>
+</li>
+<li>
+<p>Scaling challenges with current infrastructure</p>
+</li>
+<li>
+<p>Edge deployment requires resource optimization</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_avoid_when"><a class="anchor" href="#_avoid_when"></a>Avoid When</h3>
+<div class="paragraph">
+<p>Certain customer situations indicate higher risk or inappropriate fit for compression solutions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mission-critical accuracy with zero tolerance for degradation</p>
+</li>
+<li>
+<p>Current resources already accommodate requirements</p>
+</li>
+<li>
+<p>No evaluation capability available</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_regulatory_assessment_required"><a class="anchor" href="#_regulatory_assessment_required"></a>Regulatory Assessment Required</h3>
+<div class="paragraph">
+<p>Organizations in regulated environments represent high-value opportunities when approached correctly:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Opportunity:</strong> Deploy approved models within infrastructure and budget constraints</p>
+</li>
+<li>
+<p><strong>Requirement:</strong> Comprehensive evaluation to demonstrate functional equivalence</p>
+</li>
+<li>
+<p><strong>Red Hat AI Value:</strong> Evaluation frameworks, GuideLLM support, and documentation assistance</p>
+</li>
+<li>
+<p><strong>Positioning:</strong> "We help you deploy your approved models cost-effectively with rigorous validation"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="positioning"><a class="anchor" href="#positioning"></a>"Why Red Hat AI?" Positioning</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Understanding competitive differentiation enables effective positioning against alternative approaches customers might consider.</p>
+</div>
+<div class="sect2">
+<h3 id="_vs_building_in_house"><a class="anchor" href="#_vs_building_in_house"></a>vs. Building In-House</h3>
+<div class="paragraph">
+<p>Organizations often underestimate the complexity and resource requirements of model compression:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>490+ pre-validated models</strong> vs. months of compression work</p>
+</li>
+<li>
+<p><strong>Enterprise support with SLAs</strong> vs. community-only troubleshooting</p>
+</li>
+<li>
+<p><strong>Production-ready deployment</strong> vs. research prototypes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vs_other_compression_tools"><a class="anchor" href="#_vs_other_compression_tools"></a>vs. Other Compression Tools</h3>
+<div class="paragraph">
+<p>The fragmented landscape of compression tools creates integration and support challenges:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unified, enterprise-grade platform</strong> vs. fragmented specialist tools</p>
+</li>
+<li>
+<p><strong>Broad ecosystem integration</strong> vs. algorithm-specific solutions</p>
+</li>
+<li>
+<p><strong>Stability and predictable roadmap</strong> vs. research-driven changes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vs_hardware_only_solutions"><a class="anchor" href="#_vs_hardware_only_solutions"></a>vs. Hardware-Only Solutions</h3>
+<div class="paragraph">
+<p>Software-based optimization provides immediate value while hardware solutions require extensive planning:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Immediate software deployment</strong> vs. hardware procurement cycles</p>
+</li>
+<li>
+<p><strong>Flexible quantization options</strong> vs. fixed hardware constraints</p>
+</li>
+<li>
+<p><strong>Cost-effective optimization</strong> vs. expensive hardware upgrades</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="team-guidance"><a class="anchor" href="#team-guidance"></a>Team Guidance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Different roles within the organization require distinct approaches to effectively support compressed model deployments.</p>
+</div>
+<div class="sect2">
+<h3 id="_sales_team_focus"><a class="anchor" href="#_sales_team_focus"></a>Sales Team Focus</h3>
+<div class="paragraph">
+<p>Sales teams should concentrate on identifying and qualifying opportunities through constraint-based discovery:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Lead with constraint identification (GPU memory, costs, latency)</p>
+</li>
+<li>
+<p>Emphasize pre-compressed model collection advantage</p>
+</li>
+<li>
+<p>Position evaluation as validation of Red Hat AI&#8217;s work</p>
+</li>
+<li>
+<p>Use concrete ROI examples (80% cost reduction, 2-5X throughput)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technical_services_focus"><a class="anchor" href="#_technical_services_focus"></a>Technical Services Focus</h3>
+<div class="paragraph">
+<p>Technical teams require deeper engagement around implementation specifics and performance optimization:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Assess hardware compatibility and quantization scheme alignment</p>
+</li>
+<li>
+<p>Guide model selection based on performance requirements</p>
+</li>
+<li>
+<p>Coordinate evaluation framework with customer teams</p>
+</li>
+<li>
+<p>Provide GuideLLM benchmarking assistance</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_support_team_focus"><a class="anchor" href="#_support_team_focus"></a>Support Team Focus</h3>
+<div class="paragraph">
+<p>Support teams need clear escalation paths and troubleshooting guidance for ongoing customer success:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Troubleshoot deployment and integration issues</p>
+</li>
+<li>
+<p>Facilitate model selection from Red Hat AI collection</p>
+</li>
+<li>
+<p>Escalate accuracy concerns to technical specialists</p>
+</li>
+<li>
+<p>Monitor performance and optimization opportunities</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementation"><a class="anchor" href="#implementation"></a>Implementation Process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Successful compressed model deployments follow a structured approach that balances speed to value with proper validation requirements.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_assessment"><a class="anchor" href="#_step_1_assessment"></a>Step 1: Assessment</h3>
+<div class="paragraph">
+<p>Begin with comprehensive understanding of customer requirements and constraints:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Identify deployment constraints (memory, cost, latency)</p>
+</li>
+<li>
+<p>Define accuracy requirements and evaluation capabilities</p>
+</li>
+<li>
+<p>Assess hardware compatibility and target environment</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_model_selection"><a class="anchor" href="#_step_2_model_selection"></a>Step 2: Model Selection</h3>
+<div class="paragraph">
+<p>Guide customers through the selection process using use-case mapping rather than technical specifications:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select appropriate model family and parameter size</p>
+</li>
+<li>
+<p>Choose quantization scheme based on use case mapping</p>
+</li>
+<li>
+<p>Validate selection against hardware capabilities</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_deployment"><a class="anchor" href="#_step_3_deployment"></a>Step 3: Deployment</h3>
+<div class="paragraph">
+<p>Leverage Red Hat AI&#8217;s pre-compressed models for immediate deployment capability:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Load pre-compressed model from Red Hat AI collection
+from vllm import LLM
+model = LLM("RedHatAI/Llama-3.1-70B-Instruct-W8A8")
+output = model.generate("Your prompt here")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_validation"><a class="anchor" href="#_step_4_validation"></a>Step 4: Validation</h3>
+<div class="paragraph">
+<p>Ensure performance meets customer requirements through systematic evaluation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Conduct accuracy evaluation on customer-specific data</p>
+</li>
+<li>
+<p>Monitor performance metrics (latency, throughput)</p>
+</li>
+<li>
+<p>Adjust model selection if requirements not met</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="success-metrics"><a class="anchor" href="#success-metrics"></a>Success Metrics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Measuring the impact of compressed model deployments requires tracking both technical performance improvements and business outcomes.</p>
+</div>
+<div class="sect2">
+<h3 id="_technical_performance"><a class="anchor" href="#_technical_performance"></a>Technical Performance</h3>
+<div class="paragraph">
+<p>Quantifiable metrics that demonstrate the effectiveness of compression optimization:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Inference speed improvement:</strong> 2-5X faster processing</p>
+</li>
+<li>
+<p><strong>Memory usage reduction:</strong> Up to 75% memory savings</p>
+</li>
+<li>
+<p><strong>Throughput increase:</strong> 2-5X more requests per GPU</p>
+</li>
+<li>
+<p><strong>Cost reduction:</strong> Up to 80% infrastructure savings</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business_impact"><a class="anchor" href="#_business_impact"></a>Business Impact</h3>
+<div class="paragraph">
+<p>Broader organizational benefits that justify compressed model adoption:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Faster time-to-market with immediate deployment capability</p>
+</li>
+<li>
+<p>Improved user experience through reduced response times</p>
+</li>
+<li>
+<p>Enhanced scalability without hardware expansion</p>
+</li>
+<li>
+<p>Lower total cost of ownership</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="common-objections"><a class="anchor" href="#common-objections"></a>Common Objections</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anticipating and preparing responses to frequent customer concerns enables confident objection handling throughout the sales process.</p>
+</div>
+<div class="sect2">
+<h3 id="_were_concerned_about_accuracy_loss"><a class="anchor" href="#_were_concerned_about_accuracy_loss"></a>"We&#8217;re concerned about accuracy loss"</h3>
+<div class="paragraph">
+<p>Address accuracy concerns while positioning Red Hat AI&#8217;s evaluation support capabilities:</p>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong> <em>"Red Hat AI&#8217;s models are pre-validated to maintain 95%+ accuracy. We provide evaluation frameworks to validate performance on your specific use case, with fallback options if needed."</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_we_dont_have_resources_for_evaluation"><a class="anchor" href="#_we_dont_have_resources_for_evaluation"></a>"We don&#8217;t have resources for evaluation"</h3>
+<div class="paragraph">
+<p>Position Red Hat AI&#8217;s services as reducing rather than increasing evaluation burden:</p>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong> <em>"Our technical services team can assist with GuideLLM benchmarking, and our 490+ pre-validated models reduce evaluation requirements compared to custom compression."</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_we_need_the_latest_model_versions"><a class="anchor" href="#_we_need_the_latest_model_versions"></a>"We need the latest model versions"</h3>
+<div class="paragraph">
+<p>Emphasize Red Hat AI&#8217;s commitment to maintaining current model collections:</p>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong> <em>"Red Hat AI continuously updates our collection with the latest architectures. We typically have compressed versions available within weeks of new model releases."</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_about_ongoing_support"><a class="anchor" href="#_what_about_ongoing_support"></a>"What about ongoing support?"</h3>
+<div class="paragraph">
+<p>Differentiate enterprise support from community-driven alternatives:</p>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong> <em>"Unlike community tools, Red Hat AI provides enterprise-grade support with SLAs, regular updates, and direct access to the engineering team."</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_were_in_a_regulated_environment"><a class="anchor" href="#_were_in_a_regulated_environment"></a>"We&#8217;re in a regulated environment"</h3>
+<div class="paragraph">
+<p>Position compressed models as enabling rather than hindering regulatory compliance:</p>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong> <em>"Many of our regulated customers use compressed models successfully. We provide comprehensive evaluation frameworks to demonstrate functional equivalence with your approved models, often enabling cost-effective deployment of models that were previously too expensive to scale."</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started"><a class="anchor" href="#getting-started"></a>Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Moving from initial customer interest to active deployment requires clear next steps and resource identification.</p>
+</div>
+<div class="sect2">
+<h3 id="_immediate_actions"><a class="anchor" href="#_immediate_actions"></a>Immediate Actions</h3>
+<div class="paragraph">
+<p>Structured approach to converting qualified opportunities into active engagements:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Assess customer qualification</strong> using decision framework</p>
+</li>
+<li>
+<p><strong>Identify appropriate use case</strong> and model mapping</p>
+</li>
+<li>
+<p><strong>Select initial model</strong> from Red Hat AI collection</p>
+</li>
+<li>
+<p><strong>Plan evaluation approach</strong> with customer team</p>
+</li>
+<li>
+<p><strong>Deploy and validate</strong> with support team assistance</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resources"><a class="anchor" href="#_resources"></a>Resources</h3>
+<div class="paragraph">
+<p>Essential tools and support mechanisms for successful customer engagements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Red Hat AI Models:</strong> <a href="https://huggingface.co/RedHatAI">huggingface.co/RedHatAI</a></p>
+</li>
+<li>
+<p><strong>Technical Documentation:</strong> Red Hat AI documentation</p>
+</li>
+<li>
+<p><strong>GuideLLM Benchmarking:</strong> Available through Red Hat AI services</p>
+</li>
+<li>
+<p><strong>Enterprise Support:</strong> Contact Red Hat AI team</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="key-takeaways"><a class="anchor" href="#key-takeaways"></a>Key Takeaways</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following principles should guide all customer conversations and deployment decisions around LLM compression:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Red Hat AI&#8217;s 490+ pre-compressed models</strong> provide immediate deployment capability</p>
+</li>
+<li>
+<p><strong>2-5X performance improvements</strong> with typical 95%+ accuracy preservation</p>
+</li>
+<li>
+<p><strong>Customer evaluation is mandatory</strong> but supported by Red Hat AI services</p>
+</li>
+<li>
+<p><strong>Use case-specific model selection</strong> optimizes performance and accuracy trade-offs</p>
+</li>
+<li>
+<p><strong>Enterprise support and ecosystem integration</strong> differentiate from community tools</p>
+</li>
+<li>
+<p><strong>Immediate ROI through reduced infrastructure costs</strong> and improved performance</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

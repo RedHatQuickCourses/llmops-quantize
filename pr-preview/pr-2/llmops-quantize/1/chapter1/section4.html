@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Course Wrap-up :: Model Quantization with LLM Compressor</title>
+    <link rel="prev" href="section7.html">
+    <link rel="next" href="../appendix/appendix.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Quantization with LLM Compressor</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="llmops-quantize" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Quantization with LLM Compressor</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mission.html">Mission Four</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section5.html">Weights and Activation Quantization (W4A16)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section6.html">Model Quantization Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section7.html">Model Quantization Mastery</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section4.html">Course Wrap-up</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/reference-quantization-technical.html">Technical Quantization Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Quantization with LLM Compressor</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Quantization with LLM Compressor</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Model Quantization with LLM Compressor</a></li>
+    <li><a href="section4.html">Course Wrap-up</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Course Wrap-up</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations! You have successfully quantized a Large Language Model both manually and through an automated pipeline. You have mastered a technique that delivers transformative cost and efficiency improvements for enterprise AI deployments.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_of_learnings"><a class="anchor" href="#_summary_of_learnings"></a>Summary of Learnings</h3>
+<div class="paragraph">
+<p>What You Accomplished:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Hands-on Quantization</strong>: You used <code>LLM Compressor</code> in a notebook to apply <strong>W4A16</strong> quantization with <strong>SmoothQuant</strong> and <strong>GPTQ</strong>, reducing a model&#8217;s memory footprint while preserving its quality.</p>
+</li>
+<li>
+<p><strong>Pipeline Automation</strong>: You converted the manual process into a robust, repeatable Kubeflow Pipeline, demonstrating how to operationalize quantization for production environments.</p>
+</li>
+<li>
+<p><strong>Measurable Impact</strong>: You saw firsthand how quantization leads to a dramatic reduction in model size, which directly translates to lower infrastructure costs and greater deployment flexibility.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business_impact_and_next_steps"><a class="anchor" href="#_business_impact_and_next_steps"></a>Business Impact and Next Steps</h3>
+<div class="paragraph">
+<p>The skills you&#8217;ve learned are critical for making GenAI economically viable for customers. You can now provide data-driven recommendations and implement solutions for common challenges:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>When a customer says&#8230;&#8203;</strong> "Our models are too big to fit on our GPUs" or "Inference costs are too high."</p>
+</li>
+<li>
+<p><strong>You can propose&#8230;&#8203;</strong> A Proof of Concept using their model to demonstrate a 50-75% memory reduction with minimal accuracy loss, followed by implementing an automated quantization pipeline.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The formula for success is clear: <strong>Optimized Serving (vLLM) + Model Quantization = Maximum performance at minimum cost.</strong></p>
+</div>
+<div class="paragraph">
+<p>You are now equipped to help clients achieve significant cost reductions while maintaining high quality, a compelling value proposition for any enterprise AI initiative.</p>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section7.html">Model Quantization Mastery</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
