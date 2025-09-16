@@ -1,9 +1,8 @@
 = Model Quantization with LLM Compressor
 
-
 == Introduction to Model Quantization
 
-Welcome to the course on Model Quantization. In our previous courses, we focused on optimizing model serving and evaluating accuracy. Now, we will tackle one of the most impactful optimization techniques: compressing the model itself to dramatically reduce memory requirements and inference costs.
+In our previous courses, we focused on optimizing model serving and evaluating accuracy. Now, we will tackle one of the most impactful optimization techniques: compressing the model itself to dramatically reduce memory requirements and inference costs.
 
 Quantization is transformative because it addresses the fundamental challenge of modern LLMs: their massive size. By reducing the numerical precision of a model's weights (and sometimes activations) from 16-bit to 8-bit or even 4-bit, you can achieve a 50-75% memory reduction.
 
@@ -14,4 +13,44 @@ Quantization is transformative because it addresses the fundamental challenge of
 * **Inference Speed**: Reduced data movement from memory to the processor can improve overall throughput.
 * **Accessibility**: Make state-of-the-art models accessible to organizations with limited GPU budgets.
 
-By the end of this course, you will be able to apply quantization techniques using LLM Compressor, build automated quantization pipelines, and make informed decisions about which quantization strategy best fits your customer's needs.
+By the end of this course, you will be able to apply quantization techniques using LLM Compressor, start automated quantization pipelines, and make informed decisions about which quantization strategy best fits use case needs.
+
+== Technical Reference: Terms to Know
+
+=== Quantization Fundamentals
+* **Precision Formats**: Understanding FP16, INT8, INT4 and their memory/performance implications
+* **Weight vs Activation Quantization**: When and how to quantize different model components
+* **Quantization Schemes**: W4A16, W8A8, and selecting the right approach for your hardware
+* **Quality vs Efficiency Trade-offs**: Balancing compression ratio with model accuracy
+
+=== Advanced Quantization Techniques
+* **SmoothQuant**: Smoothing activation outliers for better weight/activation quantization
+* **GPTQ**: Layer-wise quantization optimization for minimal accuracy loss
+* **Calibration Datasets**: Selecting representative data for optimal quantization parameters
+* **Hardware Considerations**: Matching quantization schemes to GPU capabilities (Ampere vs Hopper)
+
+=== Production Implementation
+* **LLM Compressor Workflows**: Using the industry-leading quantization toolkit
+* **Pipeline Automation**: Building repeatable quantization workflows in OpenShift AI
+* **Quality Evaluation**: Measuring accuracy impact and performance improvements
+* **Deployment Integration**: Serving quantized models with vLLM for production workloads
+
+
+== Real-World Impact
+
+Consider these quantization results from enterprise deployments:
+
+* **Memory Reduction**: 70B parameter models reduced from 140GB to 35GB (W4A16)
+* **Cost Savings**: 400B parameter model deployment cost reduced by 60% through quantization
+* **Hardware Accessibility**: Models requiring 8x A100 GPUs compressed to run on 2x A100 GPUs
+* **Maintained Quality**: <2% accuracy degradation with proper quantization techniques
+
+== Success Metrics
+
+By module completion, you should achieve:
+
+* **Successful Model Compression**: Reduce model memory footprint by 50-75%
+* **Quality Preservation**: Maintain >95% of original model accuracy
+* **Production Pipeline**: Automated quantization workflow ready for enterprise deployment
+* **Cost Analysis**: Clear understanding of infrastructure savings and deployment options
+* **Technical Confidence**: Ability to recommend and implement quantization strategies for different use cases

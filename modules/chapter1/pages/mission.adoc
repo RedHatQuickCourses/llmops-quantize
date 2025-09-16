@@ -1,6 +1,6 @@
 // This section should be placed after the main course introduction.
 
-= Your Place in the Adventure
+= Mission Four
 
 Welcome, Optimization Specialist! As you dive into the powerful world of quantization, let's frame this skill within your larger LLMOps adventure. You are learning to master the "AI Factory"—a system where you control the balance between **Performance, Accuracy, and Cost**.
 
