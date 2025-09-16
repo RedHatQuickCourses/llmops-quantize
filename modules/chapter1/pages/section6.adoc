@@ -1,4 +1,4 @@
-= = Model Quantization Pipeline
+= Model Quantization Pipeline
 
 == Learning Objectives
 
