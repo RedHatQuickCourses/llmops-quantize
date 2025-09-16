@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Weights and Activation Quantization (W4A16) :: Model Quantization with LLM Compressor</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section6.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Quantization with LLM Compressor</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="llmops-quantize" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Quantization with LLM Compressor</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mission.html">Mission Four</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section5.html">Weights and Activation Quantization (W4A16)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section6.html">Model Quantization Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section7.html">Model Quantization Mastery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Course Wrap-up</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Technical Quantization Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Quantization with LLM Compressor</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Quantization with LLM Compressor</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Model Quantization with LLM Compressor</a></li>
+    <li><a href="section5.html">Weights and Activation Quantization (W4A16)</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Weights and Activation Quantization (W4A16)</h1>
+<div class="sect1">
+<h2 id="_learning_objectives"><a class="anchor" href="#_learning_objectives"></a>Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By completing this exercise, you will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Understand W4A16 quantization and its benefits for LLM optimization</p>
+</li>
+<li>
+<p>Learn to set up a complete quantization pipeline using OpenShift AI</p>
+</li>
+<li>
+<p>Gain hands-on experience with SmoothQuant and GPTQ quantization techniques</p>
+</li>
+<li>
+<p>Evaluate quantized model performance and memory efficiency</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this exercise, you will use a Jupyter notebook to investigate how LLM weights and activations can be quantized to <strong>W4A16</strong> format. This quantization method reduces memory usage while maintaining model performance during inference.</p>
+</div>
+<div class="paragraph">
+<p><strong>W4A16 Quantization</strong> compresses model weights to 4-bit precision while keeping activations at 16-bit precision, achieving significant memory savings with minimal accuracy loss.</p>
+</div>
+<div class="paragraph">
+<p><strong>Key Quantization methods:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SmoothQuant</strong>: Reduces activation outliers by smoothing weight and activation quantization</p>
+</li>
+<li>
+<p><strong>GPTQ</strong>: Post-training quantization method that maintains model quality through careful calibration</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll follow these main steps to quantize your model:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Load the model</strong>: Load the pre-trained LLM model</p>
+</li>
+<li>
+<p><strong>Choose the quantization scheme and method</strong>: Refer to the slides for a quick recap of the schemes and formats supported</p>
+</li>
+<li>
+<p><strong>Prepare calibration dataset</strong>: Prepare the appropriate dataset for calibration</p>
+</li>
+<li>
+<p><strong>Quantize the model</strong>: Convert the model weights and activations to <strong>W4A16</strong> format</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Using SmoothQuant and GPTQ</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Save the model</strong>: Save the quantized model to suitable storage</p>
+</li>
+<li>
+<p><strong>Evaluate the model</strong>: Evaluate the quantized model&#8217;s accuracy</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before beginning the quantization exercise, complete these setup steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a Data Science Project</p>
+</li>
+<li>
+<p>Create Data Connections - To store the quantized model</p>
+</li>
+<li>
+<p>Deploy a Data Science Pipeline Server</p>
+</li>
+<li>
+<p>Launch a Workbench</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_data_science_project"><a class="anchor" href="#_creating_a_data_science_project"></a>Creating a Data Science Project</h3>
+<div class="paragraph">
+<p><em>Estimated time: 1-2 minutes</em></p>
+</div>
+<div class="paragraph">
+<p>First, create a project to organize your quantization work.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to <strong>Data Science Projects</strong> in the left menu of the OpenShift AI Dashboard:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-ds-proj-nav.png" target="blank"><img src="_images/quant-ds-proj-nav.png" alt="quant ds proj nav" width="100%"></a>
+</div>
+<div class="title">Figure 1. Navigate to Data Science Projects in OpenShift AI Dashboard</div>
+</div>
+</li>
+<li>
+<p>Create a Data Science Project with the name <code>quantization</code>:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-create-project.png" target="blank"><img src="_images/quant-create-project.png" alt="quant create project" width="100%"></a>
+</div>
+<div class="title">Figure 2. Create Data Science Project Named 'quantization'</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Verify that your project appears in the Data Science Projects list with the name "quantization" and shows a "Ready" status.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_data_connection_for_the_pipeline_server"><a class="anchor" href="#_creating_a_data_connection_for_the_pipeline_server"></a>Creating a Data Connection for the Pipeline Server</h3>
+<div class="paragraph">
+<p><em>Estimated time: 2-3 minutes</em></p>
+</div>
+<div class="paragraph">
+<p>Now configure the data connection to link your pipeline server to MinIO storage.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to the <code>quantization</code> project in the OpenShift AI dashboard</p>
+</li>
+<li>
+<p>Click <strong>Add Data Connection</strong>:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-add-dc.png" target="blank"><img src="_images/quant-add-dc.png" alt="quant add dc" width="100%"></a>
+</div>
+<div class="title">Figure 3. Add Data Connection Button in quantization Project</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the connection type <strong>S3-compatible object storage -v1</strong> and use the following values for configuring the MinIO connection:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-add-dc-type.png" target="blank"><img src="_images/quant-add-dc-type.png" alt="quant add dc type" width="100%"></a>
+</div>
+<div class="title">Figure 4. Select S3-compatible Object Storage Connection Type</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Name:</p>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">pipeline-connection</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Access Key:</p>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">minio</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Secret Key:</p>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">minio123</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Endpoint:</p>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">http://minio.ic-shared-minio.svc.cluster.local:9000</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Region:</p>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">none</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Bucket:</p>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">pipelines</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Verify your connection configuration matches this example:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-data-connection.png" target="blank"><img src="_images/quant-data-connection.png" alt="quant data connection" width="100%"></a>
+</div>
+<div class="title">Figure 5. Data Connection Configuration</div>
+</div>
+</li>
+<li>
+<p>Create a second Data Connection named <code>minio-models</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the same MinIO connection details as above</p>
+</li>
+<li>
+<p>Change the bucket name to <code>models</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check that both data connections appear in your project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>pipeline-connection</code> - connected to <code>pipelines</code> bucket</p>
+</li>
+<li>
+<p><code>minio-models</code> - connected to the bucket in which the model <code>ibm-granite/granite-3.3-2b-instruct</code> is available</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_pipeline_server"><a class="anchor" href="#_creating_a_pipeline_server"></a>Creating a Pipeline Server</h3>
+<div class="paragraph">
+<p><em>Estimated time: 5-8 minutes</em></p>
+</div>
+<div class="paragraph">
+<p>Create the pipeline server before setting up your workbench.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the <strong>quantization</strong> project, navigate to <strong>Data science pipelines</strong> &gt; <strong>Pipelines</strong></p>
+</li>
+<li>
+<p>Click <strong>Configure Pipeline Server</strong>:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-pipelineserver01.png" target="blank"><img src="_images/quant-pipelineserver01.png" alt="quant pipelineserver01" width="100%"></a>
+</div>
+<div class="title">Figure 6. Configure Pipeline Server Button Location</div>
+</div>
+</li>
+<li>
+<p>Select the <strong>pipeline-connection</strong> Data Connection you created earlier</p>
+</li>
+<li>
+<p>Click <strong>Configure Pipeline Server</strong>:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-pipelineserver02.png" target="blank"><img src="_images/quant-pipelineserver02.png" alt="quant pipelineserver02" width="100%"></a>
+</div>
+<div class="title">Figure 7. Pipeline Server Configuration with Data Connection</div>
+</div>
+</li>
+<li>
+<p>Wait a few minutes for the pipeline server to deploy. The Pipelines section will display this status:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-pipelineserver03.png" target="blank"><img src="_images/quant-pipelineserver03.png" alt="quant pipelineserver03" width="100%"></a>
+</div>
+<div class="title">Figure 8. Successfully Deployed Pipeline Server Status</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This may take a few minutes to complete. There is no need to wait for the pipeline server to be ready. You may proceed to the next steps and check this later.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Verify that the pipeline server is running:
+* No error messages appear in the pipelines section</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_workbench"><a class="anchor" href="#_creating_a_workbench"></a>Creating a Workbench</h3>
+<div class="paragraph">
+<p><em>Estimated time: 4-8 minutes (including startup)</em></p>
+</div>
+<div class="paragraph">
+<p>With your Data Connection and Pipeline Server configured, you can now create the workbench environment.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the <code>quantization</code> project, click <strong>Create a workbench</strong>:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-create-wb.png" target="blank"><img src="_images/quant-create-wb.png" alt="quant create wb" width="100%"></a>
+</div>
+<div class="title">Figure 9. Create Workbench Button in quantization Project</div>
+</div>
+</li>
+<li>
+<p>Configure the workbench with these settings:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Name</strong>: <code>granite-quantization</code> (or your preferred name)</p>
+</li>
+<li>
+<p><strong>Image Selection</strong>: <code>CUDA</code></p>
+</li>
+<li>
+<p><strong>Container Size</strong>: <code>Standard</code></p>
+</li>
+<li>
+<p><strong>Accelerator</strong>: <code>NVIDIA-GPU</code></p>
+</li>
+<li>
+<p><strong>Number of accelerators</strong>: <code>2</code></p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-launch-workbench-01.png" target="blank"><img src="_images/quant-launch-workbench-01.png" alt="quant launch workbench 01" width="100%"></a>
+</div>
+<div class="title">Figure 10. Workbench Configuration Settings with GPU Accelerator</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Attach the <strong>minio-models</strong> Data Connection:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click the <strong>Connections</strong> section</p>
+</li>
+<li>
+<p>Select <strong>Attach existing connections</strong></p>
+</li>
+<li>
+<p>Click <strong>Attach</strong> for the <strong>minio-models</strong> connection</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-add-dc-01.png" target="blank"><img src="_images/quant-add-dc-01.png" alt="quant add dc 01" width="100%"></a>
+</div>
+<div class="title">Figure 11. Select Attach Existing Connections Option</div>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-attach-dc.png" target="blank"><img src="_images/quant-attach-dc.png" alt="quant attach dc" width="100%"></a>
+</div>
+<div class="title">Figure 12. Attach minio-models Data Connection to Workbench</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Create Workbench</strong> and wait for it to start</p>
+</li>
+<li>
+<p>When the workbench status shows <strong>Running</strong>, click the link beside its name to open it:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-open-link.png" target="blank"><img src="_images/quant-open-link.png" alt="quant open link" width="100%"></a>
+</div>
+<div class="title">Figure 13. Click Workbench Link to Launch Jupyter</div>
+</div>
+</li>
+<li>
+<p>Authenticate with your OpenShift login credentials</p>
+</li>
+<li>
+<p>You will be asked to accept the following settings:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-accept.png" target="blank"><img src="_images/quant-accept.png" alt="quant accept" width="100%"></a>
+</div>
+<div class="title">Figure 14. Accept Jupyter Notebook Server Settings</div>
+</div>
+</li>
+<li>
+<p>After accepting the settings, the Jupyter interface will load:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-jupyter.png" target="blank"><img src="_images/quant-jupyter.png" alt="quant jupyter" width="100%"></a>
+</div>
+<div class="title">Figure 15. Jupyter Interface Successfully Loaded</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Confirm that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Workbench status shows "Running"</p>
+</li>
+<li>
+<p>Jupyter interface loads without errors</p>
+</li>
+<li>
+<p>You can see the file browser and available kernels in the workbench</p>
+</li>
+<li>
+<p>GPU is accessible (if applicable) from the workbench</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clone_the_repository"><a class="anchor" href="#_clone_the_repository"></a>Clone the repository</h3>
+<div class="paragraph">
+<p><em>Estimated time: 1-2 minutes</em></p>
+</div>
+<div class="paragraph">
+<p>With Jupyter running, clone the exercise repository to access the quantization notebooks.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open the Git UI in Jupyter:</p>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-git-clone-1.png" target="blank"><img src="_images/quant-git-clone-1.png" alt="quant git clone 1" width="100%"></a>
+</div>
+<div class="title">Figure 16. Open Git Clone Interface in Jupyter</div>
+</div>
+</li>
+<li>
+<p>Specify the Git repository as:</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">https://github.com/redhat-ai-services/etx-llm-optimization-and-inference-leveraging.git</code></pre>
+</div>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quant-git-clone-2.png" target="blank"><img src="_images/quant-git-clone-2.png" alt="quant git clone 2" width="100%"></a>
+</div>
+<div class="title">Figure 17. Successfully Cloned Repository in Jupyter Environment</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You have now completed the setup and can proceed with the quantization exercise.</p>
+</div>
+<div class="paragraph">
+<p>Before starting the quantization exercise, verify:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Repository is cloned successfully in Jupyter</p>
+</li>
+<li>
+<p><code>/workshop_code/quantization/llm_compressor</code> folder exists and contains:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>weight_activation_quantization.ipynb</code> notebook</p>
+</li>
+<li>
+<p><code>minio.yaml</code> file</p>
+</li>
+<li>
+<p><code>quantization_pipeline.py</code> file</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Data connections are accessible from the workbench environment</p>
+</li>
+<li>
+<p>GPU resources are available for quantization tasks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise_quantize_the_model_with_llm_compressor"><a class="anchor" href="#_exercise_quantize_the_model_with_llm_compressor"></a>Exercise: Quantize the Model with llm-compressor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Estimated time: 15-20 minutes (depending on model size and GPU performance)</em></p>
+</div>
+<div class="paragraph">
+<p>Now you&#8217;ll perform the actual quantization using the provided Jupyter notebook.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to the <code>workshop_code/quantization/llm_compressor</code> folder</p>
+</li>
+<li>
+<p>Open the notebook <code>weight_activation_quantization.ipynb</code>:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quantization-int8-notebook.png" target="blank"><img src="_images/quantization-int8-notebook.png" alt="quantization int8 notebook" width="100%"></a>
+</div>
+<div class="title">Figure 18. Weight Activation Quantization Notebook Ready to Execute</div>
+</div>
+<div class="paragraph">
+<p>To execute the cells, you can select them and either click on the <strong>play</strong> icon or press <strong>Shift + Enter</strong>:</p>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quantization-notebook-cell-status.png" target="blank"><img src="_images/quantization-notebook-cell-status.png" alt="quantization notebook cell status" width="100%"></a>
+</div>
+<div class="title">Figure 19. How to Execute Notebook Cells Using Play Button</div>
+</div>
+<div class="paragraph">
+<p>When the cell is being executed, you can see <strong>[*]</strong>. Once the execution has completed, you will see a number instead of the *, e.g., <strong>[1]</strong>:</p>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quantization-notebook-execute-cell.png" target="blank"><img src="_images/quantization-notebook-execute-cell.png" alt="quantization notebook execute cell" width="100%"></a>
+</div>
+<div class="title">Figure 20. Cell Execution Status Indicators in Notebook</div>
+</div>
+<div class="paragraph">
+<p>When you complete the notebook exercises, close the notebook and continue to the next module.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Once you complete this exercise and you no longer need the workbench, ensure you <strong>stop it</strong> so that the associated GPU gets freed and can be utilized to serve the model.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quantization-notebook-workbench-done.png" target="blank"><img src="_images/quantization-notebook-workbench-done.png" alt="quantization notebook workbench done" width="100%"></a>
+</div>
+<div class="title">Figure 21. Access Workbench Actions Menu</div>
+</div>
+<div class="imageblock bordershadow">
+<div class="content">
+<a class="image" href="_images/quantization-notebook-workbench-stop.png" target="blank"><img src="_images/quantization-notebook-workbench-stop.png" alt="quantization notebook workbench stop" width="100%"></a>
+</div>
+<div class="title">Figure 22. Stop Workbench to Free GPU Resources</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Model Quantization with LLM Compressor</a></span>
+  <span class="next"><a href="section6.html">Model Quantization Pipeline</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
