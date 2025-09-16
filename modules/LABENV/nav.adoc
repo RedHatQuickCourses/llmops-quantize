@@ -1,4 +1,3 @@
-//* xref:index.adoc[]
 * xref:index-lab-demo.adoc[]
 //** xref:developer_sandbox.adoc[]
 
