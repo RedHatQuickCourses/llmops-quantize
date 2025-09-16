@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Module 2: Automating Quantization with Pipelines :: Model Quantization with LLM Compressor</title>
-    <link rel="prev" href="section1.html">
-    <link rel="next" href="section4.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -67,10 +65,13 @@
     <a class="nav-link" href="index.html">Model Quantization with LLM Compressor</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Module 1: Your First Quantization (W4A16)</a>
+    <a class="nav-link" href="section5.html">Weights and Activation Quantization (W4A16)</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section3.html">Module 2: Automating Quantization with Pipelines</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section6.html">Model Quantization Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section7.html">Model Quantization Mastery</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section4.html">Course Wrap-up</a>
@@ -83,7 +84,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Course: Model Quantization with LLM Compressor</a>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../appendix/reference-quantization-technical.html">Technical Quantization Reference</a>
@@ -120,7 +121,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">Model Quantization with LLM Compressor</a></li>
+    <li><a href="../index.html">Model Quantization with LLM Compressor</a></li>
     <li><a href="section3.html">Module 2: Automating Quantization with Pipelines</a></li>
   </ul>
 </nav>
@@ -151,9 +152,9 @@
 <ol class="arabic">
 <li>
 <p><strong>Start Workbench and Install Dependencies</strong>: If you stopped your <code>granite-quantization</code> workbench, start it again. Open a Terminal within the JupyterLab interface.</p>
-<div class="imageblock unresolved bordershadow">
+<div class="imageblock bordershadow">
 <div class="content">
-<a class="image" href="quantization-create-terminal.png" target="blank"><img src="quantization-create-terminal.png" alt="quantization create terminal" width="100%"></a>
+<a class="image" href="_images/quantization-create-terminal.png" target="blank"><img src="_images/quantization-create-terminal.png" alt="quantization create terminal" width="100%"></a>
 </div>
 <div class="title">Figure 1. Create Terminal Session in Jupyter Workbench</div>
 </div>
@@ -214,9 +215,9 @@
 </li>
 <li>
 <p>Click <strong>Import Pipeline</strong> and upload the <code>quantization_pipeline.yaml</code> file you just downloaded. Give it a descriptive name like <code>Model Quantization Pipeline</code>.</p>
-<div class="imageblock unresolved bordershadow">
+<div class="imageblock bordershadow">
 <div class="content">
-<a class="image" href="quantization-import-pipeline-select.png" target="blank"><img src="quantization-import-pipeline-select.png" alt="quantization import pipeline select" width="100%"></a>
+<a class="image" href="_images/quantization-import-pipeline-select.png" target="blank"><img src="_images/quantization-import-pipeline-select.png" alt="quantization import pipeline select" width="100%"></a>
 </div>
 <div class="title">Figure 2. Upload Pipeline YAML File for Import</div>
 </div>
@@ -255,18 +256,18 @@
 <ul>
 <li>
 <p>You can monitor the progress of the run in the OpenShift AI dashboard. You will see each component in the graph turn green as it successfully completes.</p>
-<div class="imageblock unresolved bordershadow">
+<div class="imageblock bordershadow">
 <div class="content">
-<a class="image" href="quantization-pipeline-run-success.png" target="blank"><img src="quantization-pipeline-run-success.png" alt="quantization pipeline run success" width="100%"></a>
+<a class="image" href="_images/quantization-pipeline-run-success.png" target="blank"><img src="_images/quantization-pipeline-run-success.png" alt="quantization pipeline run success" width="100%"></a>
 </div>
 <div class="title">Figure 3. Successful Pipeline Execution Status</div>
 </div>
 </li>
 <li>
 <p>After the pipeline finishes, navigate to your MinIO S3 storage. Verify that a new folder with your quantized model has been created in the <code>models</code> bucket. The size of the <code>.safetensors</code> files should be significantly smaller than the original model&#8217;s.</p>
-<div class="imageblock unresolved bordershadow">
+<div class="imageblock bordershadow">
 <div class="content">
-<a class="image" href="quantization-pipeline-run-minio.png" target="blank"><img src="quantization-pipeline-run-minio.png" alt="quantization pipeline run minio" width="100%"></a>
+<a class="image" href="_images/quantization-pipeline-run-minio.png" target="blank"><img src="_images/quantization-pipeline-run-minio.png" alt="quantization pipeline run minio" width="100%"></a>
 </div>
 <div class="title">Figure 4. Quantized Model Files in MinIO S3 Bucket</div>
 </div>
@@ -278,10 +279,6 @@
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="section1.html">Module 1: Your First Quantization (W4A16)</a></span>
-  <span class="next"><a href="section4.html">Course Wrap-up</a></span>
-</nav>
 </article>
   </div>
 </main>
