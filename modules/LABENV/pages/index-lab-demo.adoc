@@ -1,4 +1,4 @@
-= Red Hat Demo Hub: Lab Environment Selection
+= Red Hat Demo Platform
 
 This section guides you through selecting and launching a suitable lab environment on the Red Hat Demo Platform (RHDP) for this course.
 
