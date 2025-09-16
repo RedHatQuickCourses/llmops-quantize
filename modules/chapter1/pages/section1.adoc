@@ -4,7 +4,13 @@ In this module, we will perform our first quantization. We will start by setting
 
 We will focus on **W4A16 Quantization**, which compresses model **W**eights to **4**-bit precision while keeping **A**ctivations at **16**-bit precision. This strikes an excellent balance between memory savings and accuracy preservation.
 
-=== 1.1 Setting Up the Quantization Project
+=== Key Quantization methods:
+
+ . SmoothQuant: Reduces activation outliers by smoothing weight and activation quantization
+
+ . GPTQ: Post-training quantization method that maintains model quality through careful calibration
+
+== Setting Up the Quantization Project
 
 First, we need to create a Data Science Project and the necessary data connections and compute resources.
 
@@ -49,7 +55,7 @@ image::quant-pipelineserver02.png[title="Pipeline Server Configuration with Data
 image::quant-attach-dc.png[title="Attach minio-models Data Connection to Workbench", link=self, window=blank, width=100%]
 * Click **Create Workbench** and wait for it to start.
 
-=== 1.2 Quantizing the Model in a Notebook
+=== Quantizing the Model in a Notebook
 
 Now we will perform the quantization using a Jupyter Notebook.
 

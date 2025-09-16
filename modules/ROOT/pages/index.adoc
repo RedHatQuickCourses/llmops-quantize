@@ -3,7 +3,9 @@
 
 == Introduction
 
-This course provides a comprehensive, hands-on guide to model quantization, one of the most effective techniques for reducing the cost and memory footprint of Large Language Models. You will learn to use Red Hat's LLM Compressor toolkit to apply advanced compression techniques like W4A16, SmoothQuant, and GPTQ. The course covers both manual quantization within a Jupyter Notebook for deep understanding and the automation of the entire workflow using Kubeflow Pipelines for production-ready, repeatable results on OpenShift AI.
+This course provides a hands-on guide to model quantization, one of the most effective techniques for reducing the cost and memory footprint of Large Language Models. 
+
+You will learn to use Red Hat's LLM Compressor toolkit to apply advanced compression techniques like W4A16, SmoothQuant, and GPTQ. The course covers both manual quantization within a Jupyter Notebook for deep understanding and the automation of the entire workflow using Kubeflow Pipelines for production-ready, repeatable results on OpenShift AI.
 
 Duration: 2.5 hours
 
@@ -13,7 +15,7 @@ On completing this course, you should be able to:
 
 * Understand the fundamentals of model quantization and its impact on cost, memory, and performance.
 * Manually quantize an LLM using LLM Compressor, SmoothQuant, and GPTQ in a Jupyter Notebook.
-* Build and execute an automated, end-to-end quantization workflow using Kubeflow Pipelines on OpenShift AI.
+* Execute an automated, end-to-end quantization workflow using Kubeflow Pipelines on OpenShift AI.
 * Articulate the business value of quantization and how it solves common enterprise challenges related to model size and deployment cost.
 
 == Prerequisites
@@ -22,5 +24,5 @@ This course assumes that you have the following prior experience:
 
 * Foundational knowledge of Large Language Models and model serving concepts.
 * Familiarity with using the OpenShift command-line (`oc`) and navigating the OpenShift AI dashboard.
-* Access to a Red Hat OpenShift AI cluster with an available GPU node and a configured pipeline server.
+* Access to a Red Hat OpenShift AI cluster with *2* available GPU accelerators and a configured pipeline server.  
 * Basic experience working within a Jupyter Notebook environment.

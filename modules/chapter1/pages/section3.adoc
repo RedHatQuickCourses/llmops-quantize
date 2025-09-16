@@ -4,7 +4,7 @@ Performing quantization manually in a notebook is great for learning, but for re
 
 The pipeline will handle model downloading, quantization, uploading the result to S3, and accuracy evaluation in a series of connected, automated steps.
 
-=== 2.1 Preparing and Compiling the Pipeline
+== 2.1 Preparing and Compiling the Pipeline
 
 We will use the same workbench environment to prepare and compile our pipeline definition.
 
@@ -31,7 +31,7 @@ python quantization_pipeline.py
 * This will create a new file named `quantization_pipeline.yaml`. Download this file to your local machine.
 . **Stop the Workbench**: Once you have the YAML file, stop the workbench to free up resources.
 
-=== 2.2 Importing and Running the Pipeline
+== 2.2 Importing and Running the Pipeline
 
 Now we will import and run the compiled pipeline from the OpenShift AI dashboard.
 
