@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Model Quantization with LLM Compressor :: Model Quantization with LLM Compressor</title>
+    <link rel="prev" href="mission.html">
+    <link rel="next" href="section1.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Quantization with LLM Compressor</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="llmops-quantize" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Quantization with LLM Compressor</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mission.html">Mission Four</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Module 1: Your First Quantization (W4A16)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Module 2: Automating Quantization with Pipelines</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Course Wrap-up</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Course: Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/reference-quantization-technical.html">Technical Quantization Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Quantization with LLM Compressor</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Quantization with LLM Compressor</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Model Quantization with LLM Compressor</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Model Quantization with LLM Compressor</h1>
+<div class="sect1">
+<h2 id="_introduction_to_model_quantization"><a class="anchor" href="#_introduction_to_model_quantization"></a>Introduction to Model Quantization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In our previous courses, we focused on optimizing model serving and evaluating accuracy. Now, we will tackle one of the most impactful optimization techniques: compressing the model itself to dramatically reduce memory requirements and inference costs.</p>
+</div>
+<div class="paragraph">
+<p>Quantization is transformative because it addresses the fundamental challenge of modern LLMs: their massive size. By reducing the numerical precision of a model&#8217;s weights (and sometimes activations) from 16-bit to 8-bit or even 4-bit, you can achieve a 50-75% memory reduction.</p>
+</div>
+<div class="sect2">
+<h3 id="_why_quantization_matters"><a class="anchor" href="#_why_quantization_matters"></a>Why Quantization Matters</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Cost Reduction</strong>: Deploy larger models on smaller, less expensive hardware, potentially reducing infrastructure costs by 2-4x.</p>
+</li>
+<li>
+<p><strong>Memory Efficiency</strong>: Fit models that previously required multiple GPUs onto a single GPU.</p>
+</li>
+<li>
+<p><strong>Inference Speed</strong>: Reduced data movement from memory to the processor can improve overall throughput.</p>
+</li>
+<li>
+<p><strong>Accessibility</strong>: Make state-of-the-art models accessible to organizations with limited GPU budgets.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By the end of this course, you will be able to apply quantization techniques using LLM Compressor, start automated quantization pipelines, and make informed decisions about which quantization strategy best fits use case needs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_technical_reference_terms_to_know"><a class="anchor" href="#_technical_reference_terms_to_know"></a>Technical Reference: Terms to Know</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_quantization_fundamentals"><a class="anchor" href="#_quantization_fundamentals"></a>Quantization Fundamentals</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Precision Formats</strong>: Understanding FP16, INT8, INT4 and their memory/performance implications</p>
+</li>
+<li>
+<p><strong>Weight vs Activation Quantization</strong>: When and how to quantize different model components</p>
+</li>
+<li>
+<p><strong>Quantization Schemes</strong>: W4A16, W8A8, and selecting the right approach for your hardware</p>
+</li>
+<li>
+<p><strong>Quality vs Efficiency Trade-offs</strong>: Balancing compression ratio with model accuracy</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_advanced_quantization_techniques"><a class="anchor" href="#_advanced_quantization_techniques"></a>Advanced Quantization Techniques</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SmoothQuant</strong>: Smoothing activation outliers for better weight/activation quantization</p>
+</li>
+<li>
+<p><strong>GPTQ</strong>: Layer-wise quantization optimization for minimal accuracy loss</p>
+</li>
+<li>
+<p><strong>Calibration Datasets</strong>: Selecting representative data for optimal quantization parameters</p>
+</li>
+<li>
+<p><strong>Hardware Considerations</strong>: Matching quantization schemes to GPU capabilities (Ampere vs Hopper)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_production_implementation"><a class="anchor" href="#_production_implementation"></a>Production Implementation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>LLM Compressor Workflows</strong>: Using the industry-leading quantization toolkit</p>
+</li>
+<li>
+<p><strong>Pipeline Automation</strong>: Building repeatable quantization workflows in OpenShift AI</p>
+</li>
+<li>
+<p><strong>Quality Evaluation</strong>: Measuring accuracy impact and performance improvements</p>
+</li>
+<li>
+<p><strong>Deployment Integration</strong>: Serving quantized models with vLLM for production workloads</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_real_world_impact"><a class="anchor" href="#_real_world_impact"></a>Real-World Impact</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Consider these quantization results from enterprise deployments:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Memory Reduction</strong>: 70B parameter models reduced from 140GB to 35GB (W4A16)</p>
+</li>
+<li>
+<p><strong>Cost Savings</strong>: 400B parameter model deployment cost reduced by 60% through quantization</p>
+</li>
+<li>
+<p><strong>Hardware Accessibility</strong>: Models requiring 8x A100 GPUs compressed to run on 2x A100 GPUs</p>
+</li>
+<li>
+<p><strong>Maintained Quality</strong>: &lt;2% accuracy degradation with proper quantization techniques</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_success_metrics"><a class="anchor" href="#_success_metrics"></a>Success Metrics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By module completion, you should achieve:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Successful Model Compression</strong>: Reduce model memory footprint by 50-75%</p>
+</li>
+<li>
+<p><strong>Quality Preservation</strong>: Maintain &gt;95% of original model accuracy</p>
+</li>
+<li>
+<p><strong>Production Pipeline</strong>: Automated quantization workflow ready for enterprise deployment</p>
+</li>
+<li>
+<p><strong>Cost Analysis</strong>: Clear understanding of infrastructure savings and deployment options</p>
+</li>
+<li>
+<p><strong>Technical Confidence</strong>: Ability to recommend and implement quantization strategies for different use cases</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="mission.html">Mission Four</a></span>
+  <span class="next"><a href="section1.html">Module 1: Your First Quantization (W4A16)</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

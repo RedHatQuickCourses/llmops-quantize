@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Course: Model Quantization with LLM Compressor :: Model Quantization with LLM Compressor</title>
+    <link rel="prev" href="../chapter1/section4.html">
+    <link rel="next" href="reference-quantization-technical.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Quantization with LLM Compressor</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="llmops-quantize" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Quantization with LLM Compressor</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapter1/mission.html">Mission Four</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">Module 1: Your First Quantization (W4A16)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Module 2: Automating Quantization with Pipelines</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Course Wrap-up</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="appendix.html">Course: Model Quantization with LLM Compressor</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference-quantization-technical.html">Technical Quantization Reference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Quantization with LLM Compressor</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Quantization with LLM Compressor</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Quantization with LLM Compressor</a></li>
+    <li><a href="appendix.html">Course: Model Quantization with LLM Compressor</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Course: Model Quantization with LLM Compressor</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction_to_model_quantization">1. Introduction to Model Quantization</a>
+<ul class="sectlevel2">
+<li><a href="#_what_you_will_learn">1.1. What You Will Learn</a></li>
+</ul>
+</li>
+<li><a href="#_your_place_in_the_adventure">2. Your Place in the Adventure</a>
+<ul class="sectlevel2">
+<li><a href="#_your_mission_log">2.1. Your Mission Log</a></li>
+<li><a href="#_the_rules_of_engagement">2.2. The Rules of Engagement</a></li>
+</ul>
+</li>
+<li><a href="#_part_1_hands_on_quantization_in_a_notebook">3. Part 1: Hands-on Quantization in a Notebook</a>
+<ul class="sectlevel2">
+<li><a href="#_module_1_setting_up_the_environment">3.1. Module 1: Setting Up the Environment</a></li>
+<li><a href="#_module_2_performing_w4a16_quantization">3.2. Module 2: Performing W4A16 Quantization</a></li>
+</ul>
+</li>
+<li><a href="#_part_2_automating_quantization_with_pipelines">4. Part 2: Automating Quantization with Pipelines</a>
+<ul class="sectlevel2">
+<li><a href="#_module_3_building_and_compiling_the_pipeline">4.1. Module 3: Building and Compiling the Pipeline</a></li>
+<li><a href="#_module_4_running_the_automated_pipeline">4.2. Module 4: Running the Automated Pipeline</a></li>
+</ul>
+</li>
+<li><a href="#_course_wrap_up">5. Course Wrap-up</a>
+<ul class="sectlevel2">
+<li><a href="#_what_youve_accomplished">5.1. What You&#8217;ve Accomplished</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_introduction_to_model_quantization"><a class="anchor" href="#_introduction_to_model_quantization"></a>1. Introduction to Model Quantization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to the course on Model Quantization. This is one of the most impactful optimization techniques in your LLMOps toolkit. This course teaches you how to compress LLM weights to dramatically reduce memory requirements and inference costs while preserving model quality.</p>
+</div>
+<div class="paragraph">
+<p>Quantization is transformative because it addresses the massive size of modern LLMs. By reducing the numerical precision of a model&#8217;s weights (e.g., from 16-bit to 4-bit), you can achieve a 50-75% memory reduction, enabling deployment on smaller hardware and unlocking significant cost savings.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_you_will_learn"><a class="anchor" href="#_what_you_will_learn"></a>1.1. What You Will Learn</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quantization Fundamentals</strong>: Understand the trade-offs between precision, model size, and accuracy.</p>
+</li>
+<li>
+<p><strong>Hands-on Techniques</strong>: Use <strong>LLM Compressor</strong> with methods like <strong>SmoothQuant</strong> and <strong>GPTQ</strong> to perform W4A16 (4-bit weight, 16-bit activation) quantization.</p>
+</li>
+<li>
+<p><strong>Pipeline Automation</strong>: Convert the manual process into an automated, repeatable workflow using Kubeflow Pipelines on OpenShift AI.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_your_place_in_the_adventure"><a class="anchor" href="#_your_place_in_the_adventure"></a>2. Your Place in the Adventure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome, Optimization Specialist! As you dive into the powerful world of quantization, let&#8217;s frame this skill within your larger LLMOps adventure. You are learning to master the "AI Factory"—a system where you control the balance between <strong>Performance, Accuracy, and Cost</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="_your_mission_log"><a class="anchor" href="#_your_mission_log"></a>2.1. Your Mission Log</h3>
+<div class="paragraph">
+<p>This entire learning path is a series of missions. You have benchmarked, validated, and tuned. Now it&#8217;s time for the most impactful optimization technique.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mission 1: Benchmark the Battlefield with GuideLLM</strong></p>
+</li>
+<li>
+<p><strong>Mission 2: Validate Your Ally&#8217;s Strength with lm-eval-harness</strong></p>
+</li>
+<li>
+<p><strong>Mission 3: Tune Your Engine with vLLM Optimization</strong></p>
+</li>
+<li>
+<p><strong>This Mission: Travel Light and Fast with LLM Compressor</strong></p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>This is the art of making models smaller, faster, and cheaper to run. Your task is to use quantization to drastically reduce a model&#8217;s size, answering the question: "How can I make this model radically more efficient?"</p>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_rules_of_engagement"><a class="anchor" href="#_the_rules_of_engagement"></a>2.2. The Rules of Engagement</h3>
+<div class="paragraph">
+<p>These labs are blueprints, not paint-by-numbers exercises. They are based on real-world patterns. Your challenge is to <strong>adapt these blueprints</strong> and think like an operator to make these tools work within your constraints to achieve your goals.</p>
+</div>
+<div class="paragraph">
+<p>You&#8217;re now ready for the final and most impactful mission. Let&#8217;s get started.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_1_hands_on_quantization_in_a_notebook"><a class="anchor" href="#_part_1_hands_on_quantization_in_a_notebook"></a>3. Part 1: Hands-on Quantization in a Notebook</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ll begin by performing quantization manually in a Jupyter Notebook. This hands-on approach is the best way to understand the mechanics of the process before we move on to automation.</p>
+</div>
+<div class="sect2">
+<h3 id="_module_1_setting_up_the_environment"><a class="anchor" href="#_module_1_setting_up_the_environment"></a>3.1. Module 1: Setting Up the Environment</h3>
+<div class="paragraph">
+<p>First, we need to create a dedicated project and configure the necessary resources in OpenShift AI.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create a Data Science Project</strong></p>
+<div class="paragraph">
+<p>Navigate to <strong>Data Science Projects</strong> in the OpenShift AI dashboard and create a new project named <code>quantization</code>.</p>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quant-create-project.png" alt="Create Data Science Project" width="100%">
+</div>
+</div>
+</li>
+<li>
+<p><strong>Create Data Connections</strong></p>
+<div class="paragraph">
+<p>Inside your <code>quantization</code> project, click <strong>Add Data Connection</strong>. You will create two S3-compatible connections to your MinIO storage.
+* <strong>Connection 1 (for pipelines):</strong>
+<strong> </strong>Name:<strong> <code>pipeline-connection</code>
+</strong> <strong>Bucket:</strong> <code>pipelines</code>
+<strong> (Use your MinIO Access Key, Secret Key, and Endpoint)
+* </strong>Connection 2 (for models):<strong>
+</strong> <strong>Name:</strong> <code>minio-models</code>
+<strong> </strong>Bucket:** <code>models</code> (This bucket should contain the <code>ibm-granite/granite-3.3-2b-instruct</code> model)</p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quant-data-connection.png" alt="Data Connection Configuration" width="100%">
+</div>
+</div>
+</li>
+<li>
+<p><strong>Configure a Pipeline Server</strong></p>
+<div class="paragraph">
+<p>Navigate to <strong>Data science pipelines</strong> &#8594; <strong>Pipelines</strong> and click <strong>Configure Pipeline Server</strong>. Select the <code>pipeline-connection</code> data connection you just created.</p>
+</div>
+</li>
+<li>
+<p><strong>Create and Launch a Workbench</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>In the <code>quantization</code> project, click <strong>Create workbench</strong>.</p>
+</li>
+<li>
+<p>Configure it with these settings:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Name</strong>: <code>granite-quantization</code></p>
+</li>
+<li>
+<p><strong>Image Selection</strong>: <code>CUDA</code></p>
+</li>
+<li>
+<p><strong>Container Size</strong>: <code>Standard</code></p>
+</li>
+<li>
+<p><strong>Accelerator</strong>: <code>NVIDIA-GPU</code></p>
+</li>
+<li>
+<p><strong>Number of accelerators</strong>: <code>2</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Under the <strong>Connections</strong> section, attach the existing <strong>minio-models</strong> data connection.</p>
+</li>
+<li>
+<p>Click <strong>Create workbench</strong> and wait for its status to show <strong>Running</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Clone the Lab Repository</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Launch your running workbench.</p>
+</li>
+<li>
+<p>Inside the JupyterLab interface, use the Git extension to clone the following repository:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">https://github.com/redhat-ai-services/etx-llm-optimization-and-inference-leveraging.git</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Your environment is now fully prepared for the hands-on exercise.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_module_2_performing_w4a16_quantization"><a class="anchor" href="#_module_2_performing_w4a16_quantization"></a>3.2. Module 2: Performing W4A16 Quantization</h3>
+<div class="paragraph">
+<p>Now you&#8217;ll perform the actual quantization using the provided Jupyter notebook.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Navigate and Open the Notebook</strong></p>
+<div class="paragraph">
+<p>In the JupyterLab file browser, navigate to the folder: <code>etx-llm-optimization-and-inference-leveraging/workshop_code/quantization/llm_compressor</code>.</p>
+</div>
+<div class="paragraph">
+<p>Open the notebook named <code>weight_activation_quantization.ipynb</code>.</p>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quantization-int8-notebook.png" alt="Weight Activation Quantization Notebook" width="100%">
+</div>
+</div>
+</li>
+<li>
+<p><strong>Execute the Notebook Cells</strong></p>
+<div class="paragraph">
+<p>Read through the notebook&#8217;s markdown cells for explanations. Execute the code cells in order by selecting a cell and pressing <strong>Shift + Enter</strong>. The notebook will guide you through the complete process:
+* <strong>Loading</strong> the pre-trained <code>granite-2b</code> model.
+* <strong>Preparing</strong> a calibration dataset.
+* <strong>Applying</strong> W4A16 quantization using SmoothQuant and GPTQ techniques.
+* <strong>Saving</strong> the new, compressed model to storage.
+* <strong>Evaluating</strong> the quantized model&#8217;s accuracy to see the impact.</p>
+</div>
+</li>
+<li>
+<p><strong>Stop the Workbench</strong></p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Once you have successfully completed the notebook, you must stop your workbench. This is a critical step to free up the expensive GPU resources, making them available for other tasks.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quantization-notebook-workbench-stop.png" alt="Stop Workbench to Free GPU Resources" width="100%">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_2_automating_quantization_with_pipelines"><a class="anchor" href="#_part_2_automating_quantization_with_pipelines"></a>4. Part 2: Automating Quantization with Pipelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Performing quantization in a notebook is great for learning, but for repeatable, enterprise-grade workflows, automation is essential. In this part, we&#8217;ll convert the manual process into an automated Kubeflow Pipeline.</p>
+</div>
+<div class="sect2">
+<h3 id="_module_3_building_and_compiling_the_pipeline"><a class="anchor" href="#_module_3_building_and_compiling_the_pipeline"></a>4.1. Module 3: Building and Compiling the Pipeline</h3>
+<div class="paragraph">
+<p>First, we&#8217;ll use our workbench environment to compile the Python code that defines our pipeline.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Start Your Workbench and Install Dependencies</strong></p>
+<div class="paragraph">
+<p><strong>Start</strong> your <code>granite-quantization</code> workbench again. Once it&#8217;s running, open a <strong>Terminal</strong> from the JupyterLab launcher.</p>
+</div>
+<div class="paragraph">
+<p>Install the Kubeflow Pipelines SDK by running the following command in the terminal:</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">pip install -U kfp==2.9.0 kfp-kubernetes==1.3.0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Compile the Pipeline Definition</strong></p>
+<div class="paragraph">
+<p>The file <code>quantization_pipeline.py</code> contains the definition for our automated workflow. It includes steps to download a model, quantize it, upload the result, and evaluate it.</p>
+</div>
+<div class="paragraph">
+<p>In the terminal, navigate to the <code>&#8230;&#8203;/llm_compressor</code> directory and run the compilation script:</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">python quantization_pipeline.py</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command creates a new file, <code>quantization_pipeline.yaml</code>. This file is the blueprint for our pipeline.</p>
+</div>
+</li>
+<li>
+<p><strong>Download the Pipeline and Stop the Workbench</strong></p>
+<div class="paragraph">
+<p>From the JupyterLab file browser, right-click on <code>quantization_pipeline.yaml</code> and download it to your local machine.</p>
+</div>
+<div class="paragraph">
+<p>Once again, <strong>stop the workbench</strong> to release the GPU resources.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_module_4_running_the_automated_pipeline"><a class="anchor" href="#_module_4_running_the_automated_pipeline"></a>4.2. Module 4: Running the Automated Pipeline</h3>
+<div class="paragraph">
+<p>Now we will use the OpenShift AI dashboard to import and run our compiled pipeline. This UI-driven approach is perfect for managing and monitoring operational workflows.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Import the Pipeline</strong></p>
+<div class="paragraph">
+<p>In your <code>quantization</code> project on the OpenShift AI dashboard, navigate to <strong>Data Science Pipelines</strong> &#8594; <strong>Pipelines</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Click <strong>Import Pipeline</strong>, choose <strong>Upload</strong>, and select the <code>quantization_pipeline.yaml</code> file you just downloaded. Give it a descriptive name like <code>Model Quantization Pipeline</code>.</p>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quantization-import-pipeline-select.png" alt="Upload Pipeline YAML File" width="100%">
+</div>
+</div>
+</li>
+<li>
+<p><strong>Create and Start a Pipeline Run</strong></p>
+<div class="paragraph">
+<p>Once the pipeline is imported, find it in the list, click the <strong>Actions</strong> menu (three dots), and select <strong>Create run</strong>.</p>
+</div>
+<div class="paragraph">
+<p>A form will appear with the pipeline&#8217;s parameters. You can accept the defaults, which will perform <code>int4</code> quantization on the <code>granite-2b</code> model downloaded from S3.</p>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quantization-import-pipeline-create-run-params.png" alt="Pipeline Run Parameters Configuration" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <strong>Create run</strong> to start the execution.</p>
+</div>
+</li>
+<li>
+<p><strong>Monitor and Verify the Results</strong></p>
+<div class="paragraph">
+<p>You can monitor the run&#8217;s progress visually in the dashboard. Each step will turn green as it completes successfully.</p>
+</div>
+<div class="imageblock unresolved bordershadow">
+<div class="content">
+<img src="quantization-pipeline-run-success.png" alt="Successful Pipeline Execution Status" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>After the pipeline finishes, navigate to your MinIO S3 browser. In the <code>models</code> bucket, you will find a new folder (e.g., <code>granite-int4-pipeline</code>) containing the compressed model files. You can verify the success of the quantization by noting the significantly smaller size of the <code>.safetensors</code> files.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For advanced automation, these pipelines can also be triggered via the Kubeflow Pipelines REST API, allowing integration into larger CI/CD systems. The UI-driven approach shown here is ideal for managing and monitoring individual runs.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_course_wrap_up"><a class="anchor" href="#_course_wrap_up"></a>5. Course Wrap-up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations! You have successfully quantized a Large Language Model both manually to understand the process and through an automated pipeline to prepare it for production.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_youve_accomplished"><a class="anchor" href="#_what_youve_accomplished"></a>5.1. What You&#8217;ve Accomplished</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Hands-on Mastery</strong>: You used <code>LLM Compressor</code> with advanced techniques like <code>SmoothQuant</code> and <code>GPTQ</code> to tangibly reduce a model&#8217;s memory footprint.</p>
+</li>
+<li>
+<p><strong>Automation for Production</strong>: You transformed a manual notebook process into a robust, repeatable Kubeflow Pipeline, a cornerstone of any MLOps practice.</p>
+</li>
+<li>
+<p><strong>Business Impact</strong>: You have learned the single most effective technique for reducing the infrastructure cost of serving large models, making enterprise AI more economically viable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You are now equipped with a powerful skill to help clients achieve 50-75% cost reductions while maintaining high model quality—a compelling value proposition for any AI initiative.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../chapter1/section4.html">Course Wrap-up</a></span>
+  <span class="next"><a href="reference-quantization-technical.html">Technical Quantization Reference</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
